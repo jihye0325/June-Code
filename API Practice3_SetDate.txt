@@ -1,0 +1,27 @@
+package com.kh.hw3.controller;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+public class SetDate {
+	
+	public SetDate() {}
+	
+	public String todayPrint() {
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
+		String formatData = sdf.format(today);
+		return formatData.toString();
+		
+	}
+
+	public String setDay() {
+		Calendar cToday = new GregorianCalendar(2011, 2, 21);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 E요일");
+		String formatData2 = sdf.format(cToday.getTime());
+		return formatData2.toString();
+	}
+	
+}

@@ -1,0 +1,17 @@
+package com.kh.hw3.run;
+
+import com.kh.hw3.controller.SetDate;
+
+public class Run_2 {
+
+	public static void main(String[] args) {
+		SetDate sd = new SetDate();
+		
+		sd.todayPrint();
+		System.out.println(sd.todayPrint());
+		
+		sd.setDay();
+		System.out.println(sd.setDay());
+	}
+
+}
