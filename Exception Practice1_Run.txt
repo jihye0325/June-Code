@@ -1,0 +1,32 @@
+package com.kh.practice1.run;
+
+import java.util.Scanner;
+
+import com.kh.practice1.controller.NumberRangeExceptionTest;
+import com.kh.practice1.exception.NumberRangeException;
+
+public class Run {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		NumberRangeExceptionTest nr = new NumberRangeExceptionTest();
+		
+		System.out.print("첫 번째 수를 입력하세요 : ");
+		int num1 = sc.nextInt();
+		System.out.print("두 번째 수를 입력하세요(첫 번째 수의 배수) : ");
+		int num2 = sc.nextInt();
+		
+		try {
+			boolean bool = nr.checkDouble(num1, num2);
+			System.out.println("첫 번째 수는 두 번째 수의 배수인가? : " + bool);
+		} catch (NumberRangeException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+			
+		
+
+	}
+
+}
