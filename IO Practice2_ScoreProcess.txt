@@ -1,0 +1,101 @@
+package com.kh.hw2.model.dao;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class ScoreProcess {
+	Scanner sc = new Scanner(System.in);
+	
+	public ScoreProcess() {}
+	
+	public void scoreSave() {
+		
+		try(DataOutputStream dos = new DataOutputStream(new FileOutputStream("score.txt"))){
+			int x = 1;
+			for(;;) {
+			System.out.println("======다음의 성적들을 입력하시오======");
+			System.out.print("국어 : ");
+			int kor = sc.nextInt();
+			System.out.print("영어 : ");
+			int eng = sc.nextInt();
+			System.out.print("수학 : ");
+			int math = sc.nextInt();
+			sc.nextLine();
+			
+			int sum = kor + eng + math;
+			double avg = sum / 3.0;
+			
+			dos.writeInt(kor);
+			dos.writeInt(eng);
+			dos.writeInt(math);
+			dos.writeInt(sum);
+			dos.writeDouble(avg);
+			
+		
+			System.out.println(x + "번째 학생 정보 기록");
+			x++;
+			while(true) {
+			System.out.print("계속 저장하시겠습니까?(y/n) : ");
+			char ans = sc.nextLine().toUpperCase().charAt(0);
+			if(ans == 'N') {
+				System.out.println("score.txt 파일에 저장 완료");
+				return;
+			} else if(ans == 'Y') {
+				break;
+			} else {
+				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
+			}
+		}
+	}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void scoreRead() {
+		int x = 0;
+		int asum = 0;
+		double aavg = 0;
+		
+		try(DataInputStream dis = new DataInputStream(new FileInputStream("score.txt"))){
+
+			while(true) {
+				int kor = dis.readInt();
+				int eng = dis.readInt();
+				int math = dis.readInt();
+				int sum = dis.readInt();
+				double avg = dis.readDouble();
+				
+				System.out.println(++x + "번째 학생");
+				System.out.println("국어	영어	수학	총점	평균");
+				System.out.printf("%d	%d	%d	%d	%.2f", kor, eng, math, sum, avg);
+				System.out.println();
+				asum += sum;
+				aavg += avg;
+			
+			}
+		} catch (EOFException e) {
+			System.out.println("읽은 횟수	전체 총점 평균	전체 평균");
+			System.out.printf("%d	%.2f		%.2f", x, (double)asum / x, aavg / x);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("score.txt 파일 읽기 완료!");
+
+	}
+		
+	
+}
