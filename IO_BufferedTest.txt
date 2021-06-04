@@ -1,0 +1,39 @@
+package com.kh.chap04_assist.part02_buffer.model.dao;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class BufferedTest {
+	
+	public void fileSave() {
+		try(BufferedWriter bw = new BufferedWriter(new FileWriter("bufferedTest.txt"))) {
+		bw.write("안녕하세요");
+		bw.write(" 여러분\n");
+		bw.write("반가워요!");
+		bw.newLine();	
+		bw.write("화이팅!!!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void fileOpen() {
+		try(BufferedReader br = new BufferedReader(new FileReader("bufferedTest.txt"))){
+
+			String value = "";
+			while((value = br.readLine()) != null) {
+				System.out.println(value);
+			}
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+}
