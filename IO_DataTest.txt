@@ -1,0 +1,98 @@
+package com.kh.chap04_assist.part03_data.model.dao;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class DataTest {
+	
+	public void fileSave() {
+		
+		try(DataOutputStream dout = new DataOutputStream(new FileOutputStream("member.txt"))){
+			
+			dout.writeUTF("KIM");	
+			dout.writeInt(25);		
+			dout.writeChar('F');	
+			dout.writeDouble(165);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void fileOpen() {
+		
+		try(DataInputStream din = new DataInputStream(new FileInputStream("member.txt"))){
+			
+			String name = din.readUTF();
+			int age = din.readInt();
+			char gender = din.readChar();
+			double height = din.readDouble();
+			
+			System.out.println(name + "/" + age + "/" + gender + "/" + height);
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void fileSave2() {
+		Scanner sc = new Scanner(System.in);
+	
+		try(DataOutputStream dout = new DataOutputStream(new FileOutputStream("member2.txt"))){
+			
+			while(true) {
+				System.out.print("이름을 입력하시오 : ");
+				String name = sc.next();
+				System.out.print("나이를 입력하시오 : ");
+				int age = sc.nextInt();
+				System.out.print("성별을 입력하시오 : ");
+				char gender = sc.next().charAt(0);
+				System.out.print("키를 입력하시오 : ");
+				double height = sc.nextDouble();
+				
+				dout.writeUTF(name);
+				dout.writeInt(age);
+				dout.writeChar(gender);
+				dout.writeDouble(height);
+				
+				System.out.print("입력을 끝내시겠습니까 ? (y/n) : ");
+				char ch = sc.next().toUpperCase().charAt(0);
+				
+				if(ch == 'Y') break;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void fileOpen2() {
+		
+		try(DataInputStream din = new DataInputStream(new FileInputStream("member2.txt"))){
+			
+			while(true) {
+				System.out.println(din.readUTF() + "/" + din.readInt() + "/"
+						+ din.readChar() + "/" + din.readDouble());
+			}
+
+		} catch (EOFException e) {
+			System.out.println("파일을 다 읽어왔습니다.");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
+}
