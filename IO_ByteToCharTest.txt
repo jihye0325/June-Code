@@ -1,0 +1,50 @@
+package com.kh.chap04_assist.part01_byteToChar.controller;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class ByteToCharTest {
+	public void input() {
+		InputStreamReader isr = new InputStreamReader(System.in);
+
+		BufferedReader br = new BufferedReader(isr);
+		
+		try {
+			System.out.print("값 입력 : ");
+			String value =br.readLine();		
+			System.out.println("입력받은 값 : " + value);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();		
+		
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void output() {
+		OutputStreamWriter osw = new OutputStreamWriter(System.out);
+
+		BufferedWriter bw = new BufferedWriter(osw);
+		
+		try {
+			String str = "Hello";
+			bw.write(str);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
