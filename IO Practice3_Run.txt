@@ -1,0 +1,17 @@
+package com.kh.hw3.run;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import com.kh.hw3.controller.BookManager;
+
+public class Run_3 {
+
+	public static void main(String[] args) {
+		BookManager bm = new BookManager();
+		bm.fileSave();
+		bm.fileRead();
+	}
+
+}
