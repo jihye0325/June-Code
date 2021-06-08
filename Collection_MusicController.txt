@@ -1,0 +1,105 @@
+package com.kh.music.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.kh.music.model.dao.MusicDao;
+import com.kh.music.model.vo.Music;
+
+public class MusicController {
+	private MusicDao md = new MusicDao();
+	private ArrayList<Music> list;
+	
+	public void addList(Music music) {
+		list.add(music);
+		
+	}
+	
+	public ArrayList<Music> selectList(){
+		return list;
+	}
+	
+	public ArrayList<Music> searchArtist(String artist){
+		
+		ArrayList<Music> search = new ArrayList<>();
+		for(Music m : list) {
+			if(m.getArtist().contains(artist)) {
+				search.add(m);
+			}
+		}
+		return search;
+	}
+	
+	public ArrayList<Music> searchTitle(String title){
+		ArrayList<Music> search = new ArrayList<>();
+		for(Music m :list) {
+			if(m.getTitle().contains(title)) {
+				search.add(m);
+			}
+		}
+		return search;
+	}
+	
+	public int updateMusic(String title, Music updateMusic) {
+		Music old = null;
+
+		for(int i =0; i < list.size(); i++) {
+			if(list.get(i).getTitle().equals(title)) {
+				old = list.set(i, updateMusic);
+			}
+		}
+		int result = 0;
+		if(old != null ) {
+			result = 1;
+		}
+		/*for(Music m : list) {
+			if(m.getTitle().equals(title)) {
+				old = new Music(m.getArtist(), m.getTitle());
+				list.set(list.indexOf(m), updateMusic);
+			
+				if(old != null) {
+					result = 1;
+				}
+			}
+		} */
+		return result;
+	}
+	
+	public int removeMusic(String title) {
+		Music old = null;
+		
+		for(int i =0; i < list.size(); i++) {
+			if(list.get(i).getTitle().equals(title)) {
+				old = list.remove(i);
+			}
+		}
+		int result = 0;
+		if(old != null) {
+			result = 1;
+			
+		/*for(Music m :list) {
+			if(m.getTitle().equals(title)) {
+				old = new Music(m.getArtist(), m.getTitle());
+				
+				if(old != null) {
+					result = 1;
+				}
+			}*/
+	}
+		list.remove(old);
+		return result;		
+	}
+
+	public void startProgram() {
+		list = md.fileOpen();
+		
+	}
+	
+	public void endProgram() {
+		md.fileSave(list);
+	}
+	
+	
+	
+	
+}

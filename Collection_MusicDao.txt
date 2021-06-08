@@ -1,0 +1,51 @@
+package com.kh.music.model.dao;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import com.kh.music.model.vo.Music;
+
+public class MusicDao {
+	public ArrayList<Music> fileOpen(){
+		ArrayList<Music> list = new ArrayList<>();
+		
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("list.dat"))){
+			list = (ArrayList<Music>)ois.readObject();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public void fileSave(ArrayList<Music> list) {
+		
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("list.dat"))){
+			
+			oos.writeObject(list);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
